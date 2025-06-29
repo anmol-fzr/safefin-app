@@ -1,84 +1,59 @@
 import { observer } from "mobx-react-lite"
-import { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
+import { FC, useState } from "react"
 // eslint-disable-next-line no-restricted-imports
-import { TextInput, TextStyle, ViewStyle } from "react-native"
+import { Pressable, TextStyle, ViewStyle } from "react-native"
 import {
   Button,
-  PressableIcon,
   Screen,
   Text,
   TextField,
-  TextFieldAccessoryProps,
 } from "../components"
-import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
-import type { ThemedStyle } from "@/theme"
+import { colors, type ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
+import { authClient } from "@/utils/auth"
+import { useStores } from "@/models"
 
-interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
+interface LoginScreenProps extends AppStackScreenProps<"Login"> { }
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
-  const authPasswordInput = useRef<TextInput>(null)
 
-  const [authPassword, setAuthPassword] = useState("")
-  const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen() {
+  const [isOtpSent, setIsOtpSent] = useState(false)
+
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [otp, setOtp] = useState("")
+
+  const { authenticationStore: { setAuthToken } } = useStores()
+
   const [attemptsCount, setAttemptsCount] = useState(0)
-  const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  } = useStores()
 
-  const {
-    themed,
-    theme: { colors },
-  } = useAppTheme()
+  const { themed } = useAppTheme()
 
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
-
-    // Return a "cleanup" function that React will run when the component unmounts
-    return () => {
-      setAuthPassword("")
-      setAuthEmail("")
+  async function sendOtp() {
+    const otpResp = await authClient.phoneNumber.sendOtp({ phoneNumber })
+    if (otpResp.error === null) {
+      setIsOtpSent(true)
     }
-  }, [setAuthEmail])
-
-  const error = isSubmitted ? validationError : ""
-
-  function login() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
-
-    if (validationError) return
-
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
-
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
+    console.log(otpResp)
   }
 
-  const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
-    () =>
-      function PasswordRightAccessory(props: TextFieldAccessoryProps) {
-        return (
-          <PressableIcon
-            icon={isAuthPasswordHidden ? "view" : "hidden"}
-            color={colors.palette.neutral800}
-            containerStyle={props.style}
-            size={20}
-            onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
-          />
-        )
-      },
-    [isAuthPasswordHidden, colors.palette.neutral800],
-  )
+  async function login() {
+    if (isOtpSent) {
+      const resp = await authClient.phoneNumber.verify({ phoneNumber, code: otp })
+      if (resp.error === null) {
+        setAuthToken(resp.data.token)
+      }
+      console.log(resp)
+
+      return
+    }
+    await sendOtp()
+    // Send OTP
+
+    setAttemptsCount(attemptsCount + 1)
+
+    //setAuthToken(String(Date.now()))
+  }
 
   return (
     <Screen
@@ -93,38 +68,42 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       )}
 
       <TextField
-        value={authEmail}
-        onChangeText={setAuthEmail}
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
         containerStyle={themed($textField)}
         autoCapitalize="none"
-        autoComplete="email"
+        autoComplete="tel"
         autoCorrect={false}
-        keyboardType="email-address"
-        labelTx="loginScreen:emailFieldLabel"
-        placeholderTx="loginScreen:emailFieldPlaceholder"
-        helper={error}
-        status={error ? "error" : undefined}
-        onSubmitEditing={() => authPasswordInput.current?.focus()}
+        keyboardType="phone-pad"
+        labelTx="loginScreen:phoneFieldLabel"
+        placeholderTx="loginScreen:phoneFieldPlaceholder"
       />
 
-      <TextField
-        ref={authPasswordInput}
-        value={authPassword}
-        onChangeText={setAuthPassword}
-        containerStyle={themed($textField)}
-        autoCapitalize="none"
-        autoComplete="password"
-        autoCorrect={false}
-        secureTextEntry={isAuthPasswordHidden}
-        labelTx="loginScreen:passwordFieldLabel"
-        placeholderTx="loginScreen:passwordFieldPlaceholder"
-        onSubmitEditing={login}
-        RightAccessory={PasswordRightAccessory}
-      />
+      {isOtpSent && (
+        <TextField
+          value={otp}
+          onChangeText={setOtp}
+          containerStyle={themed($textField)}
+          autoCapitalize="none"
+          autoComplete="sms-otp"
+          autoCorrect={false}
+          labelTx="loginScreen:otpFieldLabel"
+          placeholderTx="loginScreen:otpFieldPlaceholder"
+          onSubmitEditing={login}
+        />
+      )}
+
+      {isOtpSent && (
+        <Pressable onPress={sendOtp}>
+          <Text style={{ color: colors.palette.primary500 }}>
+            Resend OTP
+          </Text>
+        </Pressable>
+      )}
 
       <Button
         testID="login-button"
-        tx="loginScreen:tapToLogIn"
+        tx={isOtpSent ? "loginScreen:verifyOtp" : "loginScreen:sendOtp"}
         style={themed($tapButton)}
         preset="reversed"
         onPress={login}

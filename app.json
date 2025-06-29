@@ -46,6 +46,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#191015"
         }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Allow SafeFin to access your Face ID biometric data."
+        }
       ]
     ],
     "experiments": {

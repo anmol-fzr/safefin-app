@@ -1,25 +1,41 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { ListItem, Screen, Text } from "../components"
+import { Button, ListItem, Screen, Text } from "../components"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import { $styles } from "../theme"
 import { openLinkInBrowser } from "../utils/openLinkInBrowser"
 import { isRTL } from "@/i18n"
 import type { ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
+import { authClient } from "@/utils/auth"
 
 const chainReactLogo = require("../../assets/images/demo/cr-logo.png")
 const reactNativeLiveLogo = require("../../assets/images/demo/rnl-logo.png")
 const reactNativeRadioLogo = require("../../assets/images/demo/rnr-logo.png")
 const reactNativeNewsletterLogo = require("../../assets/images/demo/rnn-logo.png")
 
+
+async function check() {
+  const phoneNumber = "+918427822949";
+  const resp = await authClient.phoneNumber.sendOtp({
+    phoneNumber
+  })
+  console.log(resp, phoneNumber)
+}
+
 export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
   function DemoCommunityScreen(_props) {
     const { themed } = useAppTheme()
+
+
     return (
       <Screen preset="scroll" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
         <Text preset="heading" tx="demoCommunityScreen:title" style={themed($title)} />
         <Text tx="demoCommunityScreen:tagLine" style={themed($tagline)} />
+
+        <Button onPress={check} >
+          Hit API
+        </Button>
 
         <Text preset="subheading" tx="demoCommunityScreen:joinUsOnSlackTitle" />
         <Text tx="demoCommunityScreen:joinUsOnSlack" style={themed($description)} />
