@@ -8,8 +8,16 @@ export const $styles = {
   flexWrap: { flexWrap: "wrap" } as ViewStyle,
 
   container: {
-    paddingTop: spacing.lg + spacing.xl,
+    paddingTop: spacing.lg,
+    //paddingTop: spacing.lg + spacing.xl,
     paddingHorizontal: spacing.lg,
+  } as ViewStyle,
+
+  goBack: {
+    display: 'flex',
+    flexDirection: "row",
+    gap: spacing.xs,
+    alignItems: "center"
   } as ViewStyle,
 
   toggleInner: {

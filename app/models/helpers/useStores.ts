@@ -15,6 +15,7 @@ import { setupRootStore } from "./setupRootStore"
  * instantiating it, although that should be rare.
  */
 const _rootStore = RootStoreModel.create({})
+export const rootStore = _rootStore
 
 /**
  * The RootStoreContext provides a way to access
@@ -56,23 +57,23 @@ export const useInitialRootStore = (callback?: () => void | Promise<void>) => {
   // Kick off initial async loading actions, like loading fonts and rehydrating RootStore
   useEffect(() => {
     let _unsubscribe: () => void | undefined
-    ;(async () => {
-      // set up the RootStore (returns the state restored from AsyncStorage)
-      const { unsubscribe } = await setupRootStore(rootStore)
-      _unsubscribe = unsubscribe
+      ; (async () => {
+        // set up the RootStore (returns the state restored from AsyncStorage)
+        const { unsubscribe } = await setupRootStore(rootStore)
+        _unsubscribe = unsubscribe
 
-      // reactotron integration with the MST root store (DEV only)
-      if (__DEV__) {
-        // @ts-ignore
-        console.tron.trackMstNode(rootStore)
-      }
+        // reactotron integration with the MST root store (DEV only)
+        if (__DEV__) {
+          // @ts-ignore
+          console.tron.trackMstNode(rootStore)
+        }
 
-      // let the app know we've finished rehydrating
-      setRehydrated(true)
+        // let the app know we've finished rehydrating
+        setRehydrated(true)
 
-      // invoke the callback, if provided
-      if (callback) callback()
-    })()
+        // invoke the callback, if provided
+        if (callback) callback()
+      })()
 
     return () => {
       // cleanup

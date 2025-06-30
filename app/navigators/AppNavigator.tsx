@@ -14,6 +14,7 @@ import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme"
 import { ComponentProps } from "react"
+import { Screen } from "@/components"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -32,9 +33,12 @@ export type AppStackParamList = {
   Welcome: undefined
   Login: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
+  Quiz: { quizId: number }
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
+
+export type ScreenProps<S extends keyof AppStackParamList> = AppStackScreenProps<S>
 
 /**
  * This is a list of all the route names that will exit the app if the back button
@@ -75,6 +79,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
 
           <Stack.Screen name="Demo" component={DemoNavigator} />
+          <Stack.Screen name="Quiz" component={Screens.QuizScreen} />
         </>
       ) : (
         <>
@@ -89,7 +94,7 @@ const AppStack = observer(function AppStack() {
 })
 
 export interface NavigationProps
-  extends Partial<ComponentProps<typeof NavigationContainer<AppStackParamList>>> {}
+  extends Partial<ComponentProps<typeof NavigationContainer<AppStackParamList>>> { }
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const { themeScheme, navigationTheme, setThemeContextOverride, ThemeProvider } =

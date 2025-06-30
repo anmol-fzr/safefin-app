@@ -1,2 +1,5 @@
-export * from "./api"
-export * from "./api.types"
+import { QUIZ } from "./quiz"
+
+export const API = {
+  QUIZ
+}
