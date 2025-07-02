@@ -1,5 +1,5 @@
 import demoJa from "./demo-ja"
-import { Translations } from "./en"
+import type { Translations } from "./en"
 
 const ja: Translations = {
   common: {

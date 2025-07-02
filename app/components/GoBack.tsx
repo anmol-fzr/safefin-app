@@ -5,8 +5,8 @@ import { $styles } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 import { Icon } from "./Icon"
 import { Text } from "./Text"
-import { TxKeyPath, translate } from "@/i18n"
-import { TOptions } from "i18next"
+import { type TxKeyPath, translate } from "@/i18n"
+import type { TOptions } from "i18next"
 
 type GoBackProps = {
   /**

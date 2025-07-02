@@ -2,18 +2,18 @@ import { useEffect, useMemo, useRef, useCallback } from "react"
 import {
   Animated,
   Image,
-  ImageStyle,
+  type ImageStyle,
   Platform,
-  StyleProp,
-  TextStyle,
+  type StyleProp,
+  type TextStyle,
   View,
-  ViewStyle,
+  type ViewStyle,
 } from "react-native"
 
 import { $styles } from "@/theme"
 import { iconRegistry } from "@/components/Icon"
 import { isRTL } from "@/i18n"
-import { $inputOuterBase, BaseToggleInputProps, Toggle, ToggleProps } from "./Toggle"
+import { $inputOuterBase, type BaseToggleInputProps, Toggle, type ToggleProps } from "./Toggle"
 import { useAppTheme } from "@/utils/useAppTheme"
 import type { ThemedStyle } from "@/theme"
 
@@ -105,7 +105,7 @@ function SwitchInput(props: SwitchInputProps) {
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
-  const knobBackgroundColor = (function () {
+  const knobBackgroundColor = (() => {
     if (on) {
       return [
         $detailStyleOverride?.backgroundColor,
@@ -198,7 +198,7 @@ function SwitchAccessibilityLabel(props: SwitchInputProps & { role: "on" | "off"
     role === "on" && { left: "5%" },
   ]
 
-  const color = (function () {
+  const color = (() => {
     if (disabled) return colors.palette.neutral600
     if (status === "error") return colors.error
     if (!on) return innerStyle?.backgroundColor || colors.palette.secondary500

@@ -1,19 +1,19 @@
 import { useScrollToTop } from "@react-navigation/native"
-import { StatusBar, StatusBarProps, StatusBarStyle } from "expo-status-bar"
-import { ReactNode, useRef, useState } from "react"
+import { StatusBar, type StatusBarProps, type StatusBarStyle } from "expo-status-bar"
+import { type ReactNode, useRef, useState } from "react"
 import {
   KeyboardAvoidingView,
-  KeyboardAvoidingViewProps,
-  LayoutChangeEvent,
+  type KeyboardAvoidingViewProps,
+  type LayoutChangeEvent,
   Platform,
-  ScrollView,
-  ScrollViewProps,
-  StyleProp,
+  type ScrollView,
+  type ScrollViewProps,
+  type StyleProp,
   View,
-  ViewStyle,
+  type ViewStyle,
 } from "react-native"
 import { $styles } from "../theme"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { type ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
 import { useAppTheme } from "@/utils/useAppTheme"
 
@@ -122,7 +122,7 @@ function useAutoPreset(props: AutoScreenProps): {
     if (scrollViewHeight.current === null || scrollViewContentHeight.current === null) return
 
     // check whether content fits the screen then toggle scroll state according to it
-    const contentFitsScreen = (function () {
+    const contentFitsScreen = (() => {
       if (point) {
         return scrollViewContentHeight.current < scrollViewHeight.current - point
       } else {
@@ -234,8 +234,6 @@ function ScreenWithScrolling(props: ScreenProps) {
  * The `Screen` component can be used with different presets such as "fixed", "scroll", or "auto".
  * It handles safe area insets, status bar settings, keyboard avoiding behavior, and scrollability based on the preset.
  * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/app/components/Screen/}
- * @param {ScreenProps} props - The props for the `Screen` component.
- * @returns {JSX.Element} The rendered `Screen` component.
  */
 export function Screen(props: ScreenProps) {
   const {

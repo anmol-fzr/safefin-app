@@ -1,16 +1,16 @@
-import { FC, useCallback, useMemo } from "react"
+import { type FC, useCallback, useMemo } from "react"
 import * as Application from "expo-application"
 import {
   LayoutAnimation,
   Linking,
   Platform,
-  TextStyle,
+  type TextStyle,
   useColorScheme,
   View,
-  ViewStyle,
+  type ViewStyle,
 } from "react-native"
 import { Button, ListItem, Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
+import type { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import type { ThemedStyle } from "@/theme"
 import { $styles } from "../theme"
 import { isRTL } from "@/i18n"

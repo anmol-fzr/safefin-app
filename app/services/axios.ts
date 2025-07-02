@@ -1,5 +1,5 @@
-import axios, { AxiosError, AxiosResponse } from "axios"
-import { rootStore } from "@/models";
+import axios, { type AxiosError, type AxiosResponse } from "axios"
+import { authClient } from "@/utils/auth";
 
 const axiosInstance = axios.create({
   baseURL: 'http://192.168.29.57:3000',
@@ -7,9 +7,9 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((req) => {
-  const token = rootStore.authenticationStore.authToken
-  if (token) {
-    req.headers.set("Authorization", `Bearer ${token}`)
+  const cookies = authClient.getCookie();
+  if (cookies) {
+    req.headers.set("Cookie", cookies)
   }
   return req
 })

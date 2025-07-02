@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react"
 import { BackHandler, Linking, Platform } from "react-native"
 import {
-  NavigationState,
-  PartialState,
+  type NavigationState,
+  type PartialState,
   createNavigationContainerRef,
 } from "@react-navigation/native"
 import Config from "../config"
@@ -10,7 +10,7 @@ import type { PersistNavigationConfig } from "../config/config.base"
 import { useIsMounted } from "../utils/useIsMounted"
 import type { AppStackParamList, NavigationProps } from "./AppNavigator"
 
-import * as storage from "../utils/storage"
+import type * as storage from "../utils/storage"
 
 type Storage = typeof storage
 

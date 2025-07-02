@@ -1,19 +1,19 @@
-import { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import { type ComponentType, forwardRef, type Ref, useImperativeHandle, useRef } from "react"
 import {
-  ImageStyle,
-  StyleProp,
+  type ImageStyle,
+  type StyleProp,
   // eslint-disable-next-line no-restricted-imports
   TextInput,
-  TextInputProps,
-  TextStyle,
+  type TextInputProps,
+  type TextStyle,
   TouchableOpacity,
   View,
-  ViewStyle,
+  type ViewStyle,
 } from "react-native"
 import { isRTL, translate } from "@/i18n"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme"
 import { $styles } from "../theme"
-import { Text, TextProps } from "./Text"
+import { Text, type TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
 export interface TextFieldAccessoryProps {
@@ -143,7 +143,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $containerStyles = [$containerStyleOverride]
 
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
+  const $labelStyles = [
+    $labelStyle,
+    status === "error" && { color: colors.error },
+    LabelTextProps?.style
+  ]
 
   const $inputWrapperStyles = [
     $styles.row,
@@ -165,7 +169,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $helperStyles = [
     $helperStyle,
-    status === "error" && { color: colors.error },
+    status === "error" && { color: colors.error, fontSize: 14, lineHeight: 21 },
     HelperTextProps?.style,
   ]
 

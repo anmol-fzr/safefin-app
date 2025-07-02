@@ -1,5 +1,5 @@
-import { TextStyle } from "react-native"
-import { Screen, Text, Card } from "../components"
+import type { TextStyle } from "react-native"
+import { Screen, Card, ScreenHeader } from "../components"
 import { $styles, type ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 import { API } from "@/services/api"
@@ -257,12 +257,12 @@ export function QuizzesScreen() {
   const navigation = useNavigation()
   const { themed } = useAppTheme()
 
-  console.dir(query.data)
-
   return (
     <Screen preset="scroll" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
-      <Text preset="heading" tx="quizzesScreen:title" style={themed($title)} />
-      <Text tx="quizzesScreen:tagLine" style={themed($tagline)} />
+      <ScreenHeader
+        titleTx="quizzesScreen:title"
+        tagLineTx="quizzesScreen:tagLine"
+      />
 
       {query.data?.data?.map(({ id, title, desc }) => (
         <Card
@@ -271,22 +271,13 @@ export function QuizzesScreen() {
           content={desc}
           onPress={() => navigation.navigate("Quiz", { quizId: id })}
           style={themed($card)}
-        >
-        </Card>
+        />
       ))}
     </Screen>
   )
 }
 
-const $title: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.sm,
-})
-
 const $card: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.xs,
   padding: spacing.sm
-})
-
-const $tagline: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.xxl,
 })

@@ -1,15 +1,15 @@
-import { TOptions } from "i18next"
+import type { TOptions } from "i18next"
 // eslint-disable-next-line no-restricted-imports
-import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
-import { isRTL, translate, TxKeyPath } from "@/i18n"
-import type { ThemedStyle, ThemedStyleArray } from "@/theme"
+import { type StyleProp, Text as RNText, type TextProps as RNTextProps, type TextStyle } from "react-native"
+import { isRTL, translate, type TxKeyPath } from "@/i18n"
+import { colors, type ThemedStyle, type ThemedStyleArray } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 import { typography } from "@/theme/typography"
-import { ReactNode, forwardRef, ForwardedRef } from "react"
+import { type ReactNode, forwardRef, type ForwardedRef } from "react"
 
 type Sizes = keyof typeof $sizeStyles
 type Weights = keyof typeof typography.primary
-type Presets = "default" | "bold" | "heading" | "subheading" | "formLabel" | "formHelper"
+type Presets = "default" | "bold" | "heading" | "subheading" | "formLabel" | "formHelper" | "error"
 
 export interface TextProps extends RNTextProps {
   /**
@@ -110,5 +110,6 @@ const $presets: Record<Presets, ThemedStyleArray<TextStyle>> = {
   subheading: [$baseStyle, { ...$sizeStyles.lg, ...$fontWeightStyles.medium }],
   formLabel: [$baseStyle, { ...$fontWeightStyles.medium }],
   formHelper: [$baseStyle, { ...$sizeStyles.sm, ...$fontWeightStyles.normal }],
+  error: [$baseStyle, { ...$sizeStyles.xs, ...$fontWeightStyles.normal, color: colors.palette.angry500 }],
 }
 const $rtlStyle: TextStyle = isRTL ? { writingDirection: "rtl" } : {}

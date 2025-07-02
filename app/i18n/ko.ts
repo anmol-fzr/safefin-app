@@ -1,5 +1,5 @@
 import demoKo from "./demo-ko"
-import { Translations } from "./en"
+import type { Translations } from "./en"
 
 const ko: Translations = {
   common: {

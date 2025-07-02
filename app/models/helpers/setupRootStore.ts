@@ -9,8 +9,8 @@
  *
  * @refresh reset
  */
-import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
-import { RootStore, RootStoreSnapshot } from "../RootStore"
+import { applySnapshot, type IDisposer, onSnapshot } from "mobx-state-tree"
+import type { RootStore, RootStoreSnapshot } from "../RootStore"
 import * as storage from "../../utils/storage"
 
 /**

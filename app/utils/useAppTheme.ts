@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
-import { StyleProp, useColorScheme } from "react-native"
+import { type StyleProp, useColorScheme } from "react-native"
 import { DarkTheme, DefaultTheme, useTheme as useNavTheme } from "@react-navigation/native"
 import {
   type Theme,

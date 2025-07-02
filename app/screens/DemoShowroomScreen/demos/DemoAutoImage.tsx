@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { Image, type ImageStyle, type TextStyle, View, type ViewStyle } from "react-native"
 import { AutoImage, Text } from "../../../components"
 import type { ThemedStyle } from "../../../theme"
 import { $styles } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
+import type { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 import { translate } from "@/i18n"

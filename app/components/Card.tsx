@@ -1,16 +1,16 @@
-import { ComponentType, Fragment, ReactElement } from "react"
+import { type ComponentType, Fragment, type ReactElement } from "react"
 import {
-  StyleProp,
-  TextStyle,
+  type StyleProp,
+  type TextStyle,
   TouchableOpacity,
-  TouchableOpacityProps,
+  type TouchableOpacityProps,
   View,
-  ViewProps,
-  ViewStyle,
+  type ViewProps,
+  type ViewStyle,
 } from "react-native"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme"
 import { $styles } from "../theme"
-import { Text, TextProps } from "./Text"
+import { Text, type TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
 type Presets = "default" | "reversed"

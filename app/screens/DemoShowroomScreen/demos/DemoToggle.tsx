@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
 import { useState } from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { type TextStyle, View, type ViewStyle } from "react-native"
 import {
   Checkbox,
-  CheckboxToggleProps,
+  type CheckboxToggleProps,
   Radio,
-  RadioToggleProps,
+  type RadioToggleProps,
   Switch,
-  SwitchToggleProps,
+  type SwitchToggleProps,
   Text,
 } from "@/components"
-import { Demo } from "../DemoShowroomScreen"
+import type { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 import { $styles, type ThemedStyle } from "@/theme"

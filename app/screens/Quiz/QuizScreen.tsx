@@ -1,4 +1,6 @@
-import { TextStyle, View } from "react-native"
+import { useCallback, useState } from "react"
+import { type TextStyle, View } from "react-native"
+
 import { Screen, Text, GoBack, Button, Card, Icon } from "@/components"
 import { $styles, colors, type ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
@@ -6,7 +8,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import type { ScreenProps } from "@/navigators"
 import type { IResQuizzes } from "@/services/api/quiz"
 import { API } from "@/services/api"
-import { useCallback, useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 
 type QuizScreenProps = ScreenProps<"Quiz">

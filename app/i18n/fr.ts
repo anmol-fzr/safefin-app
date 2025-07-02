@@ -1,5 +1,5 @@
 import demoFr from "./demo-fr"
-import { Translations } from "./en"
+import type { Translations } from "./en"
 
 const fr: Translations = {
   common: {

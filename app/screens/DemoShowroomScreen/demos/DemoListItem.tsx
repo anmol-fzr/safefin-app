@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
-import { TextStyle, View, ViewStyle } from "react-native"
+import { type TextStyle, View, type ViewStyle } from "react-native"
 import { Icon, ListItem, ListView, Text } from "../../../components"
 import type { ThemedStyle } from "../../../theme"
 import { $styles } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
+import type { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 import { translate } from "@/i18n"

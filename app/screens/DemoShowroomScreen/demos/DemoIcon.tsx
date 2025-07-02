@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Icon, iconRegistry, IconTypes, Text } from "../../../components"
-import { Demo } from "../DemoShowroomScreen"
+import { type ImageStyle, type TextStyle, View, type ViewStyle } from "react-native"
+import { Icon, iconRegistry, type IconTypes, Text } from "../../../components"
+import type { Demo } from "../DemoShowroomScreen"
 import { DemoUseCase } from "../DemoUseCase"
 import type { ThemedStyle } from "@/theme"
 import { $styles } from "@/theme"

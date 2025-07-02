@@ -1,5 +1,5 @@
 import demoEs from "./demo-es"
-import { Translations } from "./en"
+import type { Translations } from "./en"
 
 const es: Translations = {
   common: {

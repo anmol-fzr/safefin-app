@@ -1,19 +1,19 @@
-import { ComponentType, FC, useMemo } from "react"
+import { type ComponentType, type FC, useMemo } from "react"
 import {
-  GestureResponderEvent,
-  ImageStyle,
-  StyleProp,
-  SwitchProps,
-  TextInputProps,
-  TextStyle,
+  type GestureResponderEvent,
+  type ImageStyle,
+  type StyleProp,
+  type SwitchProps,
+  type TextInputProps,
+  type TextStyle,
   TouchableOpacity,
-  TouchableOpacityProps,
+  type TouchableOpacityProps,
   View,
-  ViewProps,
-  ViewStyle,
+  type ViewProps,
+  type ViewStyle,
 } from "react-native"
 import { $styles } from "../../theme"
-import { Text, TextProps } from "../Text"
+import { Text, type TextProps } from "../Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 import type { ThemedStyle } from "@/theme"
 

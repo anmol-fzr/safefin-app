@@ -1,15 +1,15 @@
-import { ComponentType } from "react"
+import type { ComponentType } from "react"
 import {
   Pressable,
-  PressableProps,
-  PressableStateCallbackType,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
+  type PressableProps,
+  type PressableStateCallbackType,
+  type StyleProp,
+  type TextStyle,
+  type ViewStyle,
 } from "react-native"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme"
 import { $styles } from "../theme"
-import { Text, TextProps } from "./Text"
+import { Text, type TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
 type Presets = "default" | "filled" | "reversed"

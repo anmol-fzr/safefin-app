@@ -13,7 +13,7 @@ import { storage, clear } from "@/utils/storage"
 import { goBack, resetRoot, navigate } from "@/navigators/navigationUtilities"
 
 import { Reactotron } from "./ReactotronClient"
-import { ReactotronReactNative } from "reactotron-react-native"
+import type { ReactotronReactNative } from "reactotron-react-native"
 
 const reactotron = Reactotron.configure({
   name: require("../../package.json").name,

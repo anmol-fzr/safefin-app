@@ -1,17 +1,17 @@
-import { ReactElement } from "react"
+import type { ReactElement } from "react"
 import {
-  StyleProp,
-  TextStyle,
+  type StyleProp,
+  type TextStyle,
   TouchableOpacity,
-  TouchableOpacityProps,
+  type TouchableOpacityProps,
   View,
-  ViewStyle,
+  type ViewStyle,
 } from "react-native"
 import { isRTL, translate } from "@/i18n"
 import { $styles } from "../theme"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { IconTypes, PressableIcon } from "./Icon"
-import { Text, TextProps } from "./Text"
+import { type ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { type IconTypes, PressableIcon } from "./Icon"
+import { Text, type TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 import type { ThemedStyle } from "@/theme"
 

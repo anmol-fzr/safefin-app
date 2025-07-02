@@ -1,4 +1,4 @@
-import { DemoTranslations } from "./demo-en"
+import type { DemoTranslations } from "./demo-en"
 
 export const demoJa: DemoTranslations = {
   demoIcon: {

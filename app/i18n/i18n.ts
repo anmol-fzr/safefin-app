@@ -5,7 +5,7 @@ import { initReactI18next } from "react-i18next"
 import "intl-pluralrules"
 
 // if English isn't your default language, move Translations to the appropriate language file.
-import en, { Translations } from "./en"
+import en, { type Translations } from "./en"
 import ar from "./ar"
 import ko from "./ko"
 import es from "./es"

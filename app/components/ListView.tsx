@@ -1,7 +1,7 @@
-import { ForwardedRef, forwardRef, PropsWithoutRef, ReactElement, RefObject } from "react"
+import { type ForwardedRef, forwardRef, type PropsWithoutRef, type ReactElement, type RefObject } from "react"
 import { FlatList } from "react-native"
 import { isRTL } from "@/i18n"
-import { FlashList, FlashListProps } from "@shopify/flash-list"
+import { FlashList, type FlashListProps } from "@shopify/flash-list"
 
 export type ListViewRef<T> = FlashList<T> | FlatList<T>
 
