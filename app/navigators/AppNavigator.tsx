@@ -55,6 +55,7 @@ export type AppStackParamList = {
 	Calc_SWP: undefined;
 	Calc_MF: undefined;
 	Calc_PPF: undefined;
+	Calc_EPF: undefined;
 
 	// 🔥 Your screens go here
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
@@ -112,6 +113,7 @@ const AppStack = observer(function AppStack() {
 					<Stack.Screen name="Calc_SWP" component={Screens.SwpCalcScreen} />
 					<Stack.Screen name="Calc_MF" component={Screens.MfCalcScreen} />
 					<Stack.Screen name="Calc_PPF" component={Screens.PpfCalcScreen} />
+					<Stack.Screen name="Calc_EPF" component={Screens.EpfCalcScreen} />
 				</>
 			) : (
 				<>

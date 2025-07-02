@@ -26,7 +26,7 @@ export const ResultItem = memo(({ label, value }: ResultRowProps) => {
 						color: themeContext === "light" ? colors.text : colors.background,
 					},
 				]}
-				spinningAnimationConfig={{ duration: 150, easing: Easing.bounce }}
+				spinningAnimationConfig={{ duration: 300, easing: Easing.bounce }}
 			/>
 		</View>
 	);

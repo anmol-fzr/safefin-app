@@ -55,6 +55,48 @@ function calcPPF({ yearlyContribution, rate, years }: PPFInput): number {
 	return total;
 }
 
+type EPFInput = {
+	monthlySalary: number; // Basic + DA
+	age: number; // Current age
+	employeeContributionPercent: number; // Your share (% of salary)
+	annualSalaryIncreasePercent: number; // Yearly hike in %
+	interestRate: number; // Annual EPF interest (%)
+};
+
+function calculateEPF({
+	monthlySalary,
+	age,
+	employeeContributionPercent,
+	annualSalaryIncreasePercent,
+	interestRate,
+}: EPFInput): number {
+	const retirementAge = 58;
+	const months = (retirementAge - age) * 12;
+	const monthlyRate = interestRate / 12 / 100;
+	const employeeRate = employeeContributionPercent / 100;
+	const employerRate = 0.12; // Fixed as per Indian EPF rules
+	const hikeRate = annualSalaryIncreasePercent / 100;
+
+	let totalAmount = 0;
+	let currentSalary = monthlySalary;
+
+	for (let month = 1; month <= months; month++) {
+		const employeeContribution = currentSalary * employeeRate;
+		const employerContribution = currentSalary * employerRate;
+
+		const monthlyContribution = employeeContribution + employerContribution;
+
+		totalAmount = (totalAmount + monthlyContribution) * (1 + monthlyRate);
+
+		// Apply annual salary hike every 12 months
+		if (month % 12 === 0) {
+			currentSalary *= 1 + hikeRate;
+		}
+	}
+
+	return totalAmount;
+}
+
 const currenctFmt = new Intl.NumberFormat("en-IN", {
 	style: "currency",
 	currency: "INR",

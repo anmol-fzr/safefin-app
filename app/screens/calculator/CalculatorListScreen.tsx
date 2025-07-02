@@ -24,6 +24,11 @@ const calcs = [
 		desc: "Calculate your returns on Public Provident Fund (PPF)",
 		screen: "Calc_PPF",
 	},
+	{
+		title: "Employee Provident Fund",
+		desc: "Calculate your returns on Employee's Provident Fund (PPF)",
+		screen: "Calc_EPF",
+	},
 ];
 
 export const CalculatorListScreen = () => {

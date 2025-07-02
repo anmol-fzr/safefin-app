@@ -107,6 +107,10 @@ const en = {
 		title: "PPF Calculator",
 		tagLine: "Calculators",
 	},
+	epfScreen: {
+		title: "EPF Calculator",
+		tagLine: "Calculators",
+	},
 	...demoEn,
 } as const;
 
