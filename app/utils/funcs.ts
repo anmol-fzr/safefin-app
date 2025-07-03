@@ -18,20 +18,28 @@ function compoundInterestEarned(
 	return compoundInterest(principal, rate, time, n) - principal;
 }
 
-function calcSwp(
-	principal: number,
-	rate: number,
-	durationYears: number,
-	withdrawal: number,
-) {
-	const n = durationYears * 12; // number of months
-	const i = rate / 12 / 100; // monthly interest rate
+type CalcSwpProps = {
+	totalInvestment: number; // Monthly SIP
+	withdrawlPM: number;
+	rate: number; // Annual return rate %
+	duration: number; // In years
+};
+
+function calcSwp(formState: CalcSwpProps) {
+	const { totalInvestment, withdrawlPM, rate, duration } = formState;
+
+	const n = duration * 12;
+	const i = rate / 12 / 100;
 
 	const futureValue =
-		principal * Math.pow(1 + i, n) -
-		withdrawal * ((Math.pow(1 + i, n) - 1) / i);
+		totalInvestment * Math.pow(1 + i, n) -
+		withdrawlPM * ((Math.pow(1 + i, n) - 1) / i);
 
-	return futureValue;
+	return {
+		totalInvestment,
+		totalWithdrawl: futureValue - totalInvestment,
+		finalValue: futureValue,
+	};
 }
 
 function calcMF(principal: number, rate: number, years: number): number {

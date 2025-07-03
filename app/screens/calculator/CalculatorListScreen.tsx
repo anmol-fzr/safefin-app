@@ -5,22 +5,22 @@ import { $styles, spacing } from "@/theme";
 import { CalculatorType } from "@/navigators";
 
 type Calc = {
-	title: CalculatorType;
+	title: string;
 	desc: string;
-	screen: string;
+	screen: CalculatorType;
 };
 
 const calcs: Calc[] = [
 	{
 		title: "SIP",
 		desc: "Calculate how much you need to save or how much you will accumulate with your SIP",
-		screen: "Calc_SIP",
+		screen: "SIP",
 	},
-	// {
-	// 	title: "SWP",
-	// 	desc: "Calculate your final amount with Systematic Withdrawal Plans (SWP)",
-	// 	screen: "Calc_SWP",
-	// },
+	{
+		title: "SWP",
+		desc: "Calculate your final amount with Systematic Withdrawal Plans (SWP)",
+		screen: "SWP",
+	},
 	// {
 	// 	title: "Mutual Fund",
 	// 	desc: "Calculate the returns on your mutual fund investments",
@@ -54,7 +54,7 @@ export const CalculatorListScreen = () => {
 			<ListView
 				data={calcs}
 				estimatedItemSize={113}
-				keyExtractor={(item) => item.title}
+				keyExtractor={(item) => item.screen}
 				renderItem={({ item: calc }) => (
 					<Pressable
 						onPress={() =>

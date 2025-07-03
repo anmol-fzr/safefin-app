@@ -41,7 +41,7 @@ const authStateXScreenMap = {
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
-export type CalculatorType = "SIP";
+export type CalculatorType = "SIP" | "SWP";
 //export type CalculatorType = "SIP" | "SWP" | "MF" | "PPF";
 
 export type AppStackParamList = {

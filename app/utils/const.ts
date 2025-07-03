@@ -1,5 +1,6 @@
 import { useSIPCalculatorLogic } from "@/hooks/useSip";
 import { CalculatorType } from "@/navigators";
+import { calcSwp } from "./funcs";
 
 type SliderConfig = {
 	label: string;
@@ -58,5 +59,49 @@ export const SIP_CALCULATOR_CONFIG: CalculatorConfigs = {
 		],
 		pieChart: true,
 		calculate: useSIPCalculatorLogic,
+	},
+	SWP: {
+		title: "SWP Calculator",
+		sliders: [
+			{
+				label: "Total investment",
+				key: "totalInvestment",
+				value: 5_00_000,
+				step: 100,
+				minValue: 1000,
+				maxValue: 10_000_000,
+			},
+			{
+				label: "Withdrawl per month",
+				key: "withdrawlPM",
+				value: 10_000,
+				step: 100,
+				minValue: 500,
+				maxValue: 1_000_000,
+			},
+			{
+				label: "Expected Return Rate (p.a)",
+				key: "rate",
+				value: 8,
+				step: 0.1,
+				minValue: 1,
+				maxValue: 30,
+			},
+			{
+				label: "Time Period (in Years)",
+				key: "duration",
+				value: 10,
+				step: 1,
+				minValue: 1,
+				maxValue: 40,
+			},
+		],
+		resultKeys: [
+			["totalInvestment", "Total Investment"],
+			["totalWithdrawl", "Total Withdrawl"],
+			["finalValue", "Final Value"],
+		],
+		pieChart: false,
+		calculate: calcSwp,
 	},
 };
