@@ -34,18 +34,6 @@ export function QuizScreen(props: QuizScreenProps) {
 			? query.data?.data
 			: data?.data.find((quiz) => quiz.id === quizId);
 
-	//const isLastQues = quesIndx === quizData?.questions?.length - 1;
-	//const hasQuizStarted = quesIndx !== -1;
-
-	// const onNextQuestion = useCallback(() => {
-	// 	if (isLastQues) {
-	// 		navigation.goBack();
-	// 		return;
-	// 	}
-	// 	setQuesIndx((curr) => curr + 1);
-	// 	setOpIndx(-1);
-	// }, [isLastQues]);
-
 	if (!quizData) {
 		return <Text>Quiz is undefined, make sure its present</Text>;
 	}
