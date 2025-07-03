@@ -2,41 +2,15 @@ import { Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Text, Screen, ScreenHeader, ListView } from "@/components";
 import { $styles, spacing } from "@/theme";
-import { CalculatorType } from "@/navigators";
+import { CalcListItem, CALCULATOR_CONFIG } from "@/utils/const";
 
-type Calc = {
-	title: string;
-	desc: string;
-	screen: CalculatorType;
-};
+const calcs: CalcListItem[] = [];
 
-const calcs: Calc[] = [
-	{
-		title: "SIP",
-		desc: "Calculate how much you need to save or how much you will accumulate with your SIP",
-		screen: "SIP",
-	},
-	{
-		title: "SWP",
-		desc: "Calculate your final amount with Systematic Withdrawal Plans (SWP)",
-		screen: "SWP",
-	},
-	// {
-	// 	title: "Mutual Fund",
-	// 	desc: "Calculate the returns on your mutual fund investments",
-	// 	screen: "Calc_MF",
-	// },
-	// {
-	// 	title: "Public Provident Fund",
-	// 	desc: "Calculate your returns on Public Provident Fund (PPF)",
-	// 	screen: "Calc_PPF",
-	// },
-	// {
-	// 	title: "Employee Provident Fund",
-	// 	desc: "Calculate your returns on Employee's Provident Fund (PPF)",
-	// 	screen: "Calc_EPF",
-	// },
-];
+Object.keys(CALCULATOR_CONFIG).map((calcConfigKey) => {
+	const config =
+		CALCULATOR_CONFIG[calcConfigKey as keyof typeof CALCULATOR_CONFIG];
+	calcs.push(config.list);
+});
 
 export const CalculatorListScreen = () => {
 	const navigation = useNavigation();
@@ -58,13 +32,14 @@ export const CalculatorListScreen = () => {
 				renderItem={({ item: calc }) => (
 					<Pressable
 						onPress={() =>
-							navigation.navigate("Calculator", { type: calc.title })
+							navigation.navigate("Calculator", { type: calc.screen })
 						}
 						style={{
 							borderWidth: 1,
 							padding: spacing.md,
 							borderRadius: spacing.md,
 							gap: spacing.xs,
+							marginBottom: spacing.md,
 						}}
 					>
 						<Text style={{ fontSize: 24, fontWeight: "heavy" }}>

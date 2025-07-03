@@ -1,9 +1,9 @@
 import { ScreenProps } from "@/navigators";
 import { CalcScreenWrapper } from "./CalcScreenWrapper";
-import { SIP_CALCULATOR_CONFIG } from "@/utils/const";
-import { StyleSheet } from "react-native";
+import { CALCULATOR_CONFIG } from "@/utils/const";
+import { StyleSheet, View } from "react-native";
 import { ListView, Text } from "@/components";
-import { SliderRow } from "@/components/calculator/SliderRow";
+import { SliderRow, sliderRowStyles } from "@/components/calculator/SliderRow";
 import { CalcPieChart } from "@/components/calculator/CalcPieChart";
 import { useMemo, useState } from "react";
 import { colors, spacing } from "@/theme";
@@ -12,12 +12,15 @@ import { ResultItem } from "@/components/calculator/ResultList";
 type CalculatorScreenProps = ScreenProps<"Calculator">;
 
 export const CalculatorScreen = (props: CalculatorScreenProps) => {
-	const { title, calculate, sliders, resultKeys, pieChart } =
-		SIP_CALCULATOR_CONFIG[props.route.params.type];
+	const { title, calculate, sliders, constants, resultKeys, pieChart } =
+		CALCULATOR_CONFIG[props.route.params.type];
 
 	const initialState = useMemo(() => {
 		const state: Record<string, number> = {};
 		sliders.forEach((s) => (state[s.key] = s.value));
+		if (constants && constants?.length > 0) {
+			constants.forEach((s) => (state[s.key] = s.value));
+		}
 		return state;
 	}, [sliders]);
 
@@ -47,6 +50,19 @@ export const CalculatorScreen = (props: CalculatorScreenProps) => {
 					minValue={slider.minValue}
 					maxValue={slider.maxValue}
 				/>
+			))}
+
+			{constants?.map((vals) => (
+				<View
+					key={vals.key}
+					style={[
+						sliderRowStyles.labelRow,
+						{ marginBottom: spacing.xl, marginTop: spacing.xl },
+					]}
+				>
+					<Text>{vals.label}</Text>
+					<Text>{vals.value}%</Text>
+				</View>
 			))}
 
 			<ListView

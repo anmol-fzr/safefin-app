@@ -21,6 +21,9 @@ import { DemoNavigator, type DemoTabParamList } from "./DemoNavigator";
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities";
 import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme";
 import { type ComponentProps, useEffect } from "react";
+import { createTamagui, TamaguiProvider } from "@tamagui/core";
+import { PortalProvider } from "@tamagui/portal";
+import { defaultConfig } from "@tamagui/config/v4";
 
 const authStateXScreenMap = {
 	login: "Login",
@@ -41,8 +44,7 @@ const authStateXScreenMap = {
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
-export type CalculatorType = "SIP" | "SWP";
-//export type CalculatorType = "SIP" | "SWP" | "MF" | "PPF";
+export type CalculatorType = "SIP" | "SWP" | "MF" | "PPF";
 
 export type AppStackParamList = {
 	Welcome: undefined;
@@ -139,6 +141,8 @@ export interface NavigationProps
 		ComponentProps<typeof NavigationContainer<AppStackParamList>>
 	> {}
 
+const config = createTamagui(defaultConfig);
+
 export const AppNavigator = observer(function AppNavigator(
 	props: NavigationProps,
 ) {
@@ -152,16 +156,20 @@ export const AppNavigator = observer(function AppNavigator(
 	useBackButtonHandler((routeName) => exitRoutes.includes(routeName));
 
 	return (
-		<ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
-			<NavigationContainer
-				ref={navigationRef}
-				theme={navigationTheme}
-				{...props}
-			>
-				<Screens.ErrorBoundary catchErrors={Config.catchErrors}>
-					<AppStack />
-				</Screens.ErrorBoundary>
-			</NavigationContainer>
-		</ThemeProvider>
+		<TamaguiProvider config={config}>
+			<ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
+				<NavigationContainer
+					ref={navigationRef}
+					theme={navigationTheme}
+					{...props}
+				>
+					<Screens.ErrorBoundary catchErrors={Config.catchErrors}>
+						<PortalProvider shouldAddRootHost>
+							<AppStack />
+						</PortalProvider>
+					</Screens.ErrorBoundary>
+				</NavigationContainer>
+			</ThemeProvider>
+		</TamaguiProvider>
 	);
 });

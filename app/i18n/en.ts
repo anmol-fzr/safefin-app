@@ -56,7 +56,7 @@ const en = {
 	demoNavigator: {
 		componentsTab: "Quizzes",
 		debugTab: "Debug",
-		communityTab: "Community",
+		profileTab: "Profile",
 		calculatorListTab: "Calculator",
 	},
 	quizzesScreen: {

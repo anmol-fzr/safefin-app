@@ -1,3 +1,5 @@
+import { colors } from "@/theme";
+
 function compoundInterest(
 	principal: number,
 	rate: number,
@@ -42,25 +44,72 @@ function calcSwp(formState: CalcSwpProps) {
 	};
 }
 
-function calcMF(principal: number, rate: number, years: number): number {
-	return compoundInterestEarned(principal, rate, years);
+type CalcMfProps = {
+	totalInvestment: number; // Monthly SIP
+	rate: number; // Annual return rate %
+	duration: number; // In years
+};
+
+function calcMF({ totalInvestment, rate, duration }: CalcMfProps) {
+	const returns = compoundInterestEarned(totalInvestment, rate, duration);
+
+	const totalValue = totalInvestment + returns;
+
+	return {
+		totalInvestment,
+		returns,
+		totalValue,
+		pieData: [
+			{
+				value: totalInvestment / totalValue,
+				color: colors.palette.primary200,
+				text: "Invested amount",
+			},
+			{
+				value: returns / totalValue,
+				color: colors.tint,
+				text: "Estimated returns",
+			},
+		],
+	};
 }
 
 type PPFInput = {
-	yearlyContribution: number; // Amount deposited each year
+	yearlyInvestment: number; // Amount deposited each year
 	rate: number; // Annual interest rate (%)
-	years: number; // Total tenure (typically 15)
+	duration: number; // Total tenure (typically 15)
 };
 
-function calcPPF({ yearlyContribution, rate, years }: PPFInput): number {
+function calcPPF({ yearlyInvestment, rate, duration }: PPFInput) {
 	const r = rate / 100;
 	let total = 0;
 
-	for (let i = 0; i < years; i++) {
-		total = (total + yearlyContribution) * (1 + r);
+	for (let i = 0; i < duration; i++) {
+		total = (total + yearlyInvestment) * (1 + r);
 	}
 
-	return total;
+	console.log(total);
+	const totalInvestment = yearlyInvestment * duration;
+	const totalInterest = total - totalInvestment;
+	const maturityValue = total;
+
+	return {
+		totalInvestment,
+		totalInterest,
+		maturityValue,
+		pieData: [
+			{
+				value: totalInvestment / maturityValue,
+				color: colors.palette.primary200,
+				text: "Total investment",
+			},
+			{
+				value: totalInterest / maturityValue,
+				color: colors.tint,
+				text: "Total interest",
+			},
+		],
+	};
 }
 
 type EPFInput = {
@@ -111,4 +160,24 @@ const currenctFmt = new Intl.NumberFormat("en-IN", {
 	maximumFractionDigits: 0,
 });
 
-export { calcSwp, calcMF, currenctFmt, calcPPF };
+function getProgressiveColor(input: number) {
+	// Clamp input between 0-30
+	const clamped = Math.max(0, Math.min(30, input));
+	// Calculate ratio (0-1) where 30=0, 0=1
+	const ratio = (30 - clamped) / 30;
+
+	// Green to red interpolation
+	const red = Math.floor(ratio * 255);
+	const green = Math.floor((1 - ratio) * 255);
+	const blue = 0;
+
+	// Convert to hex
+	const toHex = (c) => {
+		const hex = c.toString(16);
+		return hex.length === 1 ? "0" + hex : hex;
+	};
+
+	return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
+}
+
+export { calcSwp, calcMF, currenctFmt, calcPPF, getProgressiveColor };
