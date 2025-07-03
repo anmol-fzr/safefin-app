@@ -2,10 +2,10 @@ import { useCounter } from "@/hooks/useCounter";
 import { useQuizContext } from "./QuizContext";
 import { Text } from "../Text";
 import { Button } from "../Button";
-import { Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useAppTheme } from "@/utils/useAppTheme";
 import { useCountdown } from "@/hooks/useTimer";
-import { Progress } from "tamagui";
+import { Progress, styled } from "tamagui";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { spacing } from "@/theme";
@@ -31,6 +31,7 @@ export const QuizRender = () => {
 	const { countdown, resetTimer } = useCountdown();
 
 	const max = questions.length - 1;
+
 	const { counter, onNext, isLast } = useCounter({
 		max,
 	});
@@ -73,12 +74,7 @@ export const QuizRender = () => {
 				<Text weight="medium">
 					Question {counter + 1} of {questions.length}
 				</Text>
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-					}}
-				>
+				<View style={styles.quesWrapper}>
 					<Text style={{ marginLeft: 8 }}>{currQuestion.question}</Text>
 					<Text>{countdown}</Text>
 				</View>
@@ -103,27 +99,19 @@ export const QuizRender = () => {
 					))}
 				</View>
 
-				<View
-					style={{
-						display: "flex",
-						flexDirection: "row",
-						gap: spacing.md,
-						marginTop: spacing.md,
-						justifyContent: "space-between",
-					}}
-				>
+				<View style={styles.buttonWrapper}>
 					{!isLast && (
 						<Button
 							onPress={handleSkipQues}
 							text="Skip Question"
-							style={{ flexGrow: 0.75 }}
+							style={styles.skipBtn}
 						/>
 					)}
 					<Button
 						onPress={handleNextQues}
 						text="Save"
 						preset="reversed"
-						style={{ flexGrow: 1 }}
+						style={styles.saveBtn}
 					/>
 				</View>
 			</View>
@@ -146,3 +134,19 @@ const QuizTimeProgress = ({ countdown }: { countdown: number }) => {
 		</Progress>
 	);
 };
+
+const styles = StyleSheet.create({
+	buttonWrapper: {
+		display: "flex",
+		flexDirection: "row",
+		gap: spacing.md,
+		marginTop: spacing.md,
+		justifyContent: "space-between",
+	},
+	skipBtn: { flexGrow: 0.75 },
+	saveBtn: { flexGrow: 1 },
+	quesWrapper: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+});
