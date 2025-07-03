@@ -42,6 +42,7 @@ const authStateXScreenMap = {
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type CalculatorType = "SIP";
+//export type CalculatorType = "SIP" | "SWP" | "MF" | "PPF";
 
 export type AppStackParamList = {
 	Welcome: undefined;
@@ -114,6 +115,11 @@ const AppStack = observer(function AppStack() {
 					<Stack.Screen name="Calc_MF" component={Screens.MfCalcScreen} />
 					<Stack.Screen name="Calc_PPF" component={Screens.PpfCalcScreen} />
 					<Stack.Screen name="Calc_EPF" component={Screens.EpfCalcScreen} />
+
+					<Stack.Screen
+						name="Calculator"
+						component={Screens.CalculatorScreen}
+					/>
 				</>
 			) : (
 				<>
