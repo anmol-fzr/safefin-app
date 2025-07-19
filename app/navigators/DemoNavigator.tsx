@@ -1,9 +1,9 @@
+import type { TextStyle, ViewStyle } from "react-native";
 import {
 	type BottomTabScreenProps,
 	createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import type { CompositeScreenProps } from "@react-navigation/native";
-import type { TextStyle, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "../components";
 import { translate } from "@/i18n";

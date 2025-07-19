@@ -63,6 +63,10 @@ const en = {
 		title: "Quizzes",
 		tagLine: "Latest Quiz on Finance",
 	},
+	resultsScreen: {
+		title: "Results",
+		tagLine: "Latest Quiz on Finance",
+	},
 	profileScreen: {
 		title: "Profile",
 		tagLine: "Profile",

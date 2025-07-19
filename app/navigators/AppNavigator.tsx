@@ -4,6 +4,7 @@
  * Generally speaking, it will contain an auth flow (registration, login, forgot password)
  * and a "main" flow which the user will use once logged in.
  */
+import { type ComponentProps, useEffect } from "react";
 import {
 	NavigationContainer,
 	type NavigatorScreenParams,
@@ -20,10 +21,10 @@ import { useStores } from "../models";
 import { DemoNavigator, type DemoTabParamList } from "./DemoNavigator";
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities";
 import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme";
-import { type ComponentProps, useEffect } from "react";
 import { createTamagui, TamaguiProvider } from "@tamagui/core";
 import { PortalProvider } from "@tamagui/portal";
 import { defaultConfig } from "@tamagui/config/v4";
+import { ResultRecord } from "@/components/quiz/Quiz";
 
 const authStateXScreenMap = {
 	login: "Login",
@@ -52,6 +53,11 @@ export type AppStackParamList = {
 	Registration: undefined;
 	Demo: NavigatorScreenParams<DemoTabParamList>;
 	Quiz: { quizId: number };
+	QuizResult: {
+		answers: ResultRecord;
+		quizId: number;
+	};
+
 	Calculator: { type: CalculatorType };
 
 	Calc_SIP: undefined;
@@ -59,9 +65,6 @@ export type AppStackParamList = {
 	Calc_MF: undefined;
 	Calc_PPF: undefined;
 	Calc_EPF: undefined;
-
-	// 🔥 Your screens go here
-	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 };
 
 export type ScreenProps<S extends keyof AppStackParamList> =
@@ -77,7 +80,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> =
 	NativeStackScreenProps<AppStackParamList, T>;
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<AppStackParamList>();
+const RootStack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
 	const {
@@ -95,7 +98,7 @@ const AppStack = observer(function AppStack() {
 	}, [currAuthState]);
 
 	return (
-		<Stack.Navigator
+		<RootStack.Navigator
 			screenOptions={{
 				headerShown: false,
 				navigationBarColor: colors.background,
@@ -107,32 +110,36 @@ const AppStack = observer(function AppStack() {
 		>
 			{isAuthenticated ? (
 				<>
-					<Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-					<Stack.Screen name="Demo" component={DemoNavigator} />
-					<Stack.Screen name="Quiz" component={Screens.QuizScreen} />
+					<RootStack.Screen name="Welcome" component={Screens.WelcomeScreen} />
+					<RootStack.Screen name="Demo" component={DemoNavigator} />
+					<RootStack.Screen name="Quiz" component={Screens.QuizScreen} />
+					<RootStack.Screen
+						name="QuizResult"
+						component={Screens.QuizResultScreen}
+					/>
 
 					{/* Calculators */}
-					<Stack.Screen name="Calc_SIP" component={Screens.SipCalcScreen} />
-					<Stack.Screen name="Calc_SWP" component={Screens.SwpCalcScreen} />
-					<Stack.Screen name="Calc_MF" component={Screens.MfCalcScreen} />
-					<Stack.Screen name="Calc_PPF" component={Screens.PpfCalcScreen} />
-					<Stack.Screen name="Calc_EPF" component={Screens.EpfCalcScreen} />
+					<RootStack.Screen name="Calc_SIP" component={Screens.SipCalcScreen} />
+					<RootStack.Screen name="Calc_SWP" component={Screens.SwpCalcScreen} />
+					<RootStack.Screen name="Calc_MF" component={Screens.MfCalcScreen} />
+					<RootStack.Screen name="Calc_PPF" component={Screens.PpfCalcScreen} />
+					<RootStack.Screen name="Calc_EPF" component={Screens.EpfCalcScreen} />
 
-					<Stack.Screen
+					<RootStack.Screen
 						name="Calculator"
 						component={Screens.CalculatorScreen}
 					/>
 				</>
 			) : (
 				<>
-					<Stack.Screen name="Login" component={Screens.LoginScreen} />
-					<Stack.Screen
+					<RootStack.Screen name="Login" component={Screens.LoginScreen} />
+					<RootStack.Screen
 						name="Registration"
 						component={Screens.RegistrationScreen}
 					/>
 				</>
 			)}
-		</Stack.Navigator>
+		</RootStack.Navigator>
 	);
 });
 

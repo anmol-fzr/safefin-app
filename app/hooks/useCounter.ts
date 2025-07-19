@@ -36,7 +36,7 @@ export const useCounter = ({ init = 0, min, max }: UseCounterProps) => {
 	}, []);
 
 	const isFirst = useMemo(() => counter === init, [counter, init]);
-	const isLast = useMemo(() => counter === max, [counter]);
+	const isLast = counter === max;
 
 	return {
 		counter,

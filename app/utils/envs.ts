@@ -1,3 +1,4 @@
-export const envs = {
+export const envs = Object.freeze({
 	isDev: __DEV__,
-} as const;
+	API_URL: process.env.EXPO_PUBLIC_API_URL!,
+});

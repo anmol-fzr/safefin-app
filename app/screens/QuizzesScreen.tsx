@@ -1,5 +1,5 @@
 import type { TextStyle } from "react-native";
-import { Screen, Card, ScreenHeader, Button } from "../components";
+import { Screen, Card, LoadingCard, ScreenHeader } from "../components";
 import { $styles, type ThemedStyle } from "@/theme";
 import { useAppTheme } from "@/utils/useAppTheme";
 import { API } from "@/services/api";
@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigation } from "@react-navigation/native";
 
 export function QuizzesScreen() {
-	const { data } = useQuery({
+	const { data, isPending } = useQuery({
 		queryKey: ["QUIZ"],
 		queryFn: API.QUIZ.ALL,
 	});
@@ -26,16 +26,20 @@ export function QuizzesScreen() {
 				tagLineTx="quizzesScreen:tagLine"
 			/>
 
-			{data?.data?.map(({ id, title, desc }) => (
-				<Card
-					key={id}
-					heading={title}
-					headingStyle={{ textTransform: "capitalize" }}
-					content={desc}
-					onPress={() => navigation.navigate("Quiz", { quizId: id })}
-					style={themed($card)}
-				/>
-			))}
+			{isPending
+				? Array(5)
+						.fill(0)
+						.map((_, i) => <LoadingCard key={i} style={themed($card)} />)
+				: data?.data?.map(({ id, title, desc }) => (
+						<Card
+							key={id}
+							heading={title}
+							headingStyle={{ textTransform: "capitalize" }}
+							content={desc}
+							onPress={() => navigation.navigate("Quiz", { quizId: id })}
+							style={themed($card)}
+						/>
+					))}
 		</Screen>
 	);
 }

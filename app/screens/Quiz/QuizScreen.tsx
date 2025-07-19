@@ -1,42 +1,41 @@
 import { type TextStyle } from "react-native";
-import { Screen, Text, GoBack } from "@/components";
+import { Screen, Text, GoBack, Button } from "@/components";
 import { $styles, type ThemedStyle } from "@/theme";
 import { useAppTheme } from "@/utils/useAppTheme";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ScreenProps } from "@/navigators";
-import type { IResQuizzes } from "@/services/api/quiz";
-import { API } from "@/services/api";
 import { QuizProvider } from "@/components/quiz/QuizContext";
-import { QuizRender } from "@/components/quiz/Quiz";
+import { QuizRender } from "@/components/quiz/QuizRender";
+import { useQuizById } from "@/hooks/useQuizById";
+import { useToggle } from "@/hooks";
 
 type QuizScreenProps = ScreenProps<"Quiz">;
 
 export function QuizScreen(props: QuizScreenProps) {
 	const quizId = props.route.params?.quizId;
+	const { isOpen: isStarted, onOpen: handleQuizStart } = useToggle();
 
 	if (!quizId) {
 		throw new Error("No quizId param passed on QuizScreen");
 	}
 
-	const queryClient = useQueryClient();
 	const { themed } = useAppTheme();
 
-	const data: IResQuizzes | undefined = queryClient.getQueryData(["QUIZ"]);
+	const { data: quizData, isPending, local } = useQuizById(quizId);
 
-	const query = useQuery({
-		queryKey: ["QUIZ", quizId],
-		queryFn: () => API.QUIZ.ONE(quizId),
-		enabled: data === undefined,
-	});
+	// const answers = {
+	// 	"1": 2,
+	// 	"2": 6,
+	// 	"3": 10,
+	// 	"4": 15,
+	// 	"5": 17,
+	// 	"6": 21,
+	// 	"7": 28,
+	// 	"8": 31,
+	// 	"9": 35,
+	// };
 
-	const quizData =
-		data === undefined
-			? query.data?.data
-			: data?.data.find((quiz) => quiz.id === quizId);
-
-	if (!quizData) {
-		return <Text>Quiz is undefined, make sure its present</Text>;
-	}
+	// const goToResults = () =>
+	// 	props.navigation.push("QuizResult", { answers, quizId });
 
 	return (
 		<Screen
@@ -45,13 +44,20 @@ export function QuizScreen(props: QuizScreenProps) {
 			safeAreaEdges={["top"]}
 		>
 			<GoBack tx="quizzesScreen:title" />
-			<QuizProvider value={quizData}>
-				<Text preset="heading" style={$title}>
-					{quizData?.title}
-				</Text>
-				<Text style={themed($tagline)}>{quizData?.desc}</Text>
-				<QuizRender />
-			</QuizProvider>
+			<Text preset="heading" style={$title}>
+				{quizData?.title}
+			</Text>
+			<Text style={themed($tagline)}>{quizData?.desc}</Text>
+			{isStarted ? (
+				<QuizProvider value={quizData}>
+					<QuizRender />
+				</QuizProvider>
+			) : (
+				<Button text="Start Quiz" onPress={handleQuizStart} />
+			)}
+			{/*
+			<Button text="Results" onPress={goToResults} />
+      */}
 		</Screen>
 	);
 }

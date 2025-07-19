@@ -1,3 +1,5 @@
+import { stylePropsAll } from "tamagui";
+
 const palette = {
 	neutral100: "#FFFFFF",
 	neutral200: "#F4F2F1",
@@ -30,6 +32,9 @@ const palette = {
 
 	angry100: "#F2D6CD",
 	angry500: "#C03403",
+
+	success: "#2F855A",
+	successBackground: "#C6F6D5",
 
 	overlay20: "rgba(25, 16, 21, 0.2)",
 	overlay50: "rgba(25, 16, 21, 0.5)",
@@ -125,4 +130,12 @@ export const colors = {
 	 * Error Background.
 	 */
 	errorBackground: palette.angry100,
+	/**
+	 * Success messages.
+	 */
+	success: palette.success,
+	/**
+	 * Success Background.
+	 */
+	successBackground: palette.successBackground,
 } as const;

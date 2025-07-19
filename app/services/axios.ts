@@ -1,8 +1,9 @@
 import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { authClient } from "@/utils/auth";
+import { envs } from "@/utils/envs";
 
 const axiosInstance = axios.create({
-	baseURL: "http://192.168.29.57:3000",
+	baseURL: envs.API_URL,
 	timeout: 2000,
 });
 
@@ -33,6 +34,7 @@ axiosInstance.interceptors.response.use(
 
 type IResData<D = any> = {
 	data: D;
+	message: string;
 };
 
 export type { IResData };
