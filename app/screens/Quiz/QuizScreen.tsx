@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { type TextStyle } from "react-native";
 import { Screen, Text, GoBack, Button } from "@/components";
 import { $styles, type ThemedStyle } from "@/theme";
@@ -7,6 +8,7 @@ import { QuizProvider } from "@/components/quiz/QuizContext";
 import { QuizRender } from "@/components/quiz/QuizRender";
 import { useQuizById } from "@/hooks/useQuizById";
 import { useToggle } from "@/hooks";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 type QuizScreenProps = ScreenProps<"Quiz">;
 
@@ -20,22 +22,10 @@ export function QuizScreen(props: QuizScreenProps) {
 
 	const { themed } = useAppTheme();
 
-	const { data: quizData, isPending, local } = useQuizById(quizId);
+	const { data, isPending } = useQuizById(quizId);
+	const quizData = data?.data;
 
-	// const answers = {
-	// 	"1": 2,
-	// 	"2": 6,
-	// 	"3": 10,
-	// 	"4": 15,
-	// 	"5": 17,
-	// 	"6": 21,
-	// 	"7": 28,
-	// 	"8": 31,
-	// 	"9": 35,
-	// };
-
-	// const goToResults = () =>
-	// 	props.navigation.push("QuizResult", { answers, quizId });
+	//const toResults = () => props.navigation.navigate("QuizResult");
 
 	return (
 		<Screen
@@ -44,24 +34,52 @@ export function QuizScreen(props: QuizScreenProps) {
 			safeAreaEdges={["top"]}
 		>
 			<GoBack tx="quizzesScreen:title" />
-			<Text preset="heading" style={$title}>
-				{quizData?.title}
-			</Text>
-			<Text style={themed($tagline)}>{quizData?.desc}</Text>
-			{isStarted ? (
-				<QuizProvider value={quizData}>
-					<QuizRender />
-				</QuizProvider>
+			{isPending ? (
+				<LoadingQuiz />
 			) : (
-				<Button text="Start Quiz" onPress={handleQuizStart} />
+				<>
+					<Text preset="heading" style={$title}>
+						{quizData?.title}
+					</Text>
+					<Text style={themed($tagline)}>{quizData?.desc}</Text>
+
+					{isStarted ? (
+						<QuizProvider value={quizData}>
+							<QuizRender />
+						</QuizProvider>
+					) : (
+						<Button text="Start Quiz" onPress={handleQuizStart} />
+					)}
+				</>
 			)}
-			{/*
-			<Button text="Results" onPress={goToResults} />
-      */}
+			{/* <Button text="Results" onPress={toResults} /> */}
 		</Screen>
 	);
 }
 
+const LoadingQuiz = memo(() => (
+	<SkeletonPlaceholder>
+		<SkeletonPlaceholder.Item
+			width={280}
+			height={36}
+			borderRadius={5}
+			marginTop={12}
+			marginBottom={8}
+		/>
+		<SkeletonPlaceholder.Item
+			width="auto"
+			height={20}
+			borderRadius={5}
+			marginBottom={5}
+		/>
+		<SkeletonPlaceholder.Item
+			width="90%"
+			height={20}
+			borderRadius={5}
+			marginBottom={6}
+		/>
+	</SkeletonPlaceholder>
+));
 const $title = {
 	fontSize: 24,
 };

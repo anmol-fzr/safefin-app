@@ -22,7 +22,6 @@ export const FormField = (props: FormFieldProps) => {
 
 	const error = getValue(formState?.errors, props.name)?.message.toString();
 
-	console.log(error);
 	return (
 		<View>
 			<Controller

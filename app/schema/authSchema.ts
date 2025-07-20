@@ -18,7 +18,6 @@ const otp = number()
 	.label("OTP")
 	.typeError("Enter a valid OTP");
 // .test("is-of-6-length", "OTP must be of 6 digits", (value) => {
-// 	console.log("value: ", value);
 // 	return value?.toString().length === 6;
 // });
 

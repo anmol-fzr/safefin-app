@@ -36,21 +36,21 @@ type FeedbackScreenProps = ScreenProps<"QuizResult">;
 // });
 
 export function QuizResultScreen(props: FeedbackScreenProps) {
-	const markedAnswers = props.route.params?.answers;
-	const quizId = props.route.params?.quizId;
+	//const markedAnswers = props.route.params?.answers;
+	// const quizId = props.route.params?.quizId;
 	const [activeQuesId, setActiveQuesId] = useState("");
-	// const markedAnswers = {
-	// 	"1": 1,
-	// 	"2": 6,
-	// 	"3": 10,
-	// 	"4": 15,
-	// 	"5": 17,
-	// 	"6": 21,
-	// 	"7": 28,
-	// 	"8": 31,
-	// 	"9": 35,
-	// } as const;
-	// const quizId = 1;
+	const markedAnswers = {
+		"1": 1,
+		"2": 6,
+		"3": 10,
+		"4": 15,
+		"5": 17,
+		"6": 21,
+		"7": 28,
+		"8": 31,
+		"9": 35,
+	} as const;
+	const quizId = 1;
 
 	if (!markedAnswers) {
 		throw new Error("No Answers array param passed on QuizScreen");
@@ -59,9 +59,11 @@ export function QuizResultScreen(props: FeedbackScreenProps) {
 		throw new Error("No QuizId array param passed on QuizScreen");
 	}
 
-	const { data } = useQuizById(quizId);
+	const { data, isPending } = useQuizById(quizId);
 
-	const activeQues = data?.questions.find((ques) => ques.id == activeQuesId);
+	const activeQues = data?.data?.questions?.find(
+		(ques) => ques.id == activeQuesId,
+	);
 
 	const goToQuizzes = useCallback(
 		() => props.navigation.navigate("Quiz"),
@@ -81,25 +83,29 @@ export function QuizResultScreen(props: FeedbackScreenProps) {
 
 			<View style={styles.screen}>
 				<View style={styles.wrapper}>
-					{data?.questions.map((question, index) => {
-						const isCorrect =
-							markedAnswers[question.id.toString()] === question.answerId;
-						return (
-							<Square
-								key={question.id}
-								onPress={() =>
-									setActiveQuesId((curr) =>
-										curr === question.id.toString()
-											? ""
-											: question.id.toString(),
-									)
-								}
-								isActive={activeQuesId === question.id.toString()}
-								isCorrect={isCorrect}
-								index={index}
-							/>
-						);
-					})}
+					{isPending ? (
+						<Text>Crunching Results ...</Text>
+					) : (
+						data?.data?.questions?.map((question, index) => {
+							const isCorrect =
+								markedAnswers[question.id.toString()] === question.answerId;
+							return (
+								<Square
+									key={question.id}
+									onPress={() =>
+										setActiveQuesId((curr) =>
+											curr === question.id.toString()
+												? ""
+												: question.id.toString(),
+										)
+									}
+									isActive={activeQuesId === question.id.toString()}
+									isCorrect={isCorrect}
+									index={index}
+								/>
+							);
+						})
+					)}
 				</View>
 				{!activeQuesId ? (
 					<View style={{ width: "100%", gap: 12 }}>
@@ -205,7 +211,7 @@ const Square = ({ isActive, isCorrect, onPress, index }) => {
 	const borderRadius = useSharedValue(spacing.xs);
 
 	useEffect(() => {
-		borderRadius.value = withTiming(isActive ? spacing.lg : spacing.xs, {
+		borderRadius.value = withTiming(isActive ? spacing.xl : spacing.xs, {
 			duration: 200,
 		});
 	}, [isActive]);

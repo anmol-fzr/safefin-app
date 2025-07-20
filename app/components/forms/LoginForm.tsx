@@ -47,7 +47,6 @@ export const LoginForm = () => {
 		}
 
 		const otpResp = await authClient.phoneNumber.sendOtp({ phoneNumber });
-		console.log({ otpResp });
 		if (otpResp.error === null) {
 			Burnt.toast({
 				title: "OTP Sent Successfully",
@@ -72,7 +71,6 @@ export const LoginForm = () => {
 				phoneNumber: data.phoneNumber.toString(),
 				code: data.otp.toString(),
 			});
-			console.log(resp);
 			if (resp.error === null) {
 				if (resp.data.user.phoneNumber === resp.data.user.name) {
 					setAuthState("register");

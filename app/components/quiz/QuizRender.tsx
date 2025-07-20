@@ -90,7 +90,7 @@ export const QuizRender = () => {
 			});
 
 			await mutate({
-				result: results,
+				answers: userAnswers,
 				quizId: quizId,
 			});
 

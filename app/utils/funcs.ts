@@ -88,7 +88,6 @@ function calcPPF({ yearlyInvestment, rate, duration }: PPFInput) {
 		total = (total + yearlyInvestment) * (1 + r);
 	}
 
-	console.log(total);
 	const totalInvestment = yearlyInvestment * duration;
 	const totalInterest = total - totalInvestment;
 	const maturityValue = total;
@@ -172,7 +171,7 @@ function getProgressiveColor(input: number) {
 	const blue = 0;
 
 	// Convert to hex
-	const toHex = (c) => {
+	const toHex = (c: number) => {
 		const hex = c.toString(16);
 		return hex.length === 1 ? "0" + hex : hex;
 	};

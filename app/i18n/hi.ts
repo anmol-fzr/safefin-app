@@ -1,129 +1,121 @@
-import demoHi from "./demo-hi"
-import type { Translations } from "./en"
+import demoHi from "./demo-hi";
 
-const hi: Translations = {
-  common: {
-    ok: "ठीक है!",
-    cancel: "रद्द करें",
-    back: "वापस",
-    logOut: "लॉग आउट",
-  },
-  welcomeScreen: {
-    postscript:
-      "psst - शायद आपका ऐप ऐसा नहीं दिखता है। (जब तक कि आपके डिजाइनर ने आपको ये स्क्रीन नहीं दी हों, और उस स्थिति में, इसे लॉन्च करें!)",
-    readyForLaunch: "आपका ऐप, लगभग लॉन्च के लिए तैयार है!",
-    exciting: "(ओह, यह रोमांचक है!)",
-    letsGo: "चलो चलते हैं!",
-  },
-  errorScreen: {
-    title: "कुछ गलत हो गया!",
-    friendlySubtitle:
-      "यह वह स्क्रीन है जो आपके उपयोगकर्ता संचालन में देखेंगे जब कोई त्रुटि होगी। आप इस संदेश को बदलना चाहेंगे (जो `app/i18n/hi.ts` में स्थित है) और शायद लेआउट भी (`app/screens/ErrorScreen`)। यदि आप इसे पूरी तरह से हटाना चाहते हैं, तो `app/app.tsx` में <ErrorBoundary> कंपोनेंट की जांच करें।",
-    reset: "ऐप रीसेट करें",
-    traceTitle: "%{name} स्टैक से त्रुटि",
-  },
-  emptyStateComponent: {
-    generic: {
-      heading: "इतना खाली... इतना उदास",
-      content: "अभी तक कोई डेटा नहीं मिला। रीफ्रेश करने या ऐप को पुनः लोड करने के लिए बटन दबाएं।",
-      button: "चलो फिर से कोशिश करते हैं",
-    },
-  },
+const hi = {
+	common: {
+		ok: "ठक ह!",
+		cancel: "रद कर",
+		back: "वपस",
+		submit: "जम कर",
+		logOut: "लग आउट",
+	},
+	welcomeScreen: {
+		postscript:
+			"psst — शयद आपक ऐप ऐस नह दखत। (अगर आपक डजइनर न य सन द ह, त तरत लन कर!)",
+		readyForLaunch: "आपक ऐप लगभग लन क लए तयर ह!",
+		exciting: "(ओह, यह रमचक ह!)",
+		letsGo: "चलए शर कर!",
+	},
+	errorScreen: {
+		title: "कछ गलत ह गय!",
+		friendlySubtitle:
+			"उपयगकरओ क उतदन म तट आन पर यह सन दखई दग। आप इस सदश क (`app/i18n/en.ts`) और लआउट (`app/screens/ErrorScreen`) क अनकलत करन चहग। यद आप इस पर तरह स हटन चहत ह, त `<ErrorBoundary>` दख (`app/app.tsx` म)।",
+		reset: "ऐप रसट कर",
+		traceTitle: "%{name} सक स तट",
+	},
+	emptyStateComponent: {
+		generic: {
+			heading: "बहत खल... बहत दखद",
+			content: "अभ तक कई डट नह मल। तज करन य ऐप पन लड करन क लए बटन पर कक कर।",
+			button: "फर स कशश कर",
+		},
+	},
 
-  errors: {
-    invalidEmail: "अमान्य ईमेल पता।",
-  },
-  loginScreen: {
-    logIn: "लॉग इन करें",
-    enterDetails:
-      "सर्वश्रेष्ठ रहस्य पता करने के लिए नीचे अपना विवरण दर्ज करें। आप कभी अनुमान नहीं लगा पाएंगे कि हमारे पास क्या इंतजार कर रहा है। या शायद आप कर सकते हैं; यह रॉकेट साइंस नहीं है।",
-    emailFieldLabel: "ईमेल",
-    passwordFieldLabel: "पासवर्ड",
-    emailFieldPlaceholder: "अपना ईमेल पता दर्ज करें",
-    passwordFieldPlaceholder: "सुपर सीक्रेट पासवर्ड यहाँ",
-    tapToLogIn: "लॉग इन करने के लिए टैप करें!",
-    hint: "संकेत: आप किसी भी ईमेल पते और अपने पसंदीदा पासवर्ड का उपयोग कर सकते हैं :)",
-  },
-  demoNavigator: {
-    componentsTab: "कंपोनेंट्स",
-    debugTab: "डीबग",
-    communityTab: "समुदाय",
-    podcastListTab: "पॉडकास्ट",
-  },
-  demoCommunityScreen: {
-    title: "समुदाय से जुड़ें",
-    tagLine:
-      "Infinite Red के React Native इंजीनियरों के समुदाय से जुड़ें और हमारे साथ अपने ऐप विकास को बेहतर बनाएं!",
-    joinUsOnSlackTitle: "Slack पर हमसे जुड़ें",
-    joinUsOnSlack:
-      "क्या आप चाहते हैं कि दुनिया भर के React Native इंजीनियरों से जुड़ने के लिए कोई जगह हो? Infinite Red Community Slack में बातचीत में शामिल हों! हमारा बढ़ता हुआ समुदाय प्रश्न पूछने, दूसरों से सीखने और अपने नेटवर्क को बढ़ाने के लिए एक सुरक्षित स्थान है।",
-    joinSlackLink: "Slack समुदाय में शामिल हों",
-    makeIgniteEvenBetterTitle: "Ignite को और बेहतर बनाएं",
-    makeIgniteEvenBetter:
-      "Ignite को और बेहतर बनाने का कोई विचार है? हमें यह सुनकर खुशी होगी! हम हमेशा ऐसे लोगों की तलाश में रहते हैं जो हमें सर्वश्रेष्ठ React Native टूलिंग बनाने में मदद करना चाहते हैं। Ignite के भविष्य को बनाने में हमारे साथ शामिल होने के लिए GitHub पर हमसे जुड़ें।",
-    contributeToIgniteLink: "Ignite में योगदान दें",
-    theLatestInReactNativeTitle: "React Native में नवीनतम",
-    theLatestInReactNative: "हम आपको React Native के सभी प्रस्तावों पर अपडेट रखने के लिए यहां हैं।",
-    reactNativeRadioLink: "React Native रेडियो",
-    reactNativeNewsletterLink: "React Native न्यूजलेटर",
-    reactNativeLiveLink: "React Native लाइव",
-    chainReactConferenceLink: "Chain React कॉन्फ्रेंस",
-    hireUsTitle: "अपने अगले प्रोजेक्ट के लिए Infinite Red को काम पर रखें",
-    hireUs:
-      "चाहे वह एक पूरा प्रोजेक्ट चलाना हो या हमारे हैंड्स-ऑन प्रशिक्षण के साथ टीमों को गति देना हो, Infinite Red लगभग किसी भी React Native प्रोजेक्ट में मदद कर सकता है।",
-    hireUsLink: "हमें एक संदेश भेजें",
-  },
-  demoShowroomScreen: {
-    jumpStart: "अपने प्रोजेक्ट को जंप स्टार्ट करने के लिए कंपोनेंट्स!",
-    lorem2Sentences:
-      "कोई भी काम जो आप नहीं करना चाहते, उसे करने के लिए किसी और को ढूंढना चाहिए। जो लोग दूसरों की मदद करते हैं, वे खुद की भी मदद करते हैं।",
-    demoHeaderTxExample: "हाँ",
-    demoViaTxProp: "`tx` प्रॉप के माध्यम से",
-    demoViaSpecifiedTxProp: "`{{prop}}Tx` प्रॉप के माध्यम से",
-  },
-  demoDebugScreen: {
-    howTo: "कैसे करें",
-    title: "डीबग",
-    tagLine:
-      "बधाई हो, आपके पास यहां एक बहुत उन्नत React Native ऐप टेम्पलेट है। इस बॉयलरप्लेट का लाभ उठाएं!",
-    reactotron: "Reactotron को भेजें",
-    reportBugs: "बग्स की रिपोर्ट करें",
-    demoList: "डेमो सूची",
-    demoPodcastList: "डेमो पॉडकास्ट सूची",
-    androidReactotronHint:
-      "यदि यह काम नहीं करता है, तो सुनिश्चित करें कि Reactotron डेस्कटॉप ऐप चल रहा है, अपने टर्मिनल से adb reverse tcp:9090 tcp:9090 चलाएं, और ऐप को पुनः लोड करें।",
-    iosReactotronHint:
-      "यदि यह काम नहीं करता है, तो सुनिश्चित करें कि Reactotron डेस्कटॉप ऐप चल रहा है और ऐप को पुनः लोड करें।",
-    macosReactotronHint:
-      "यदि यह काम नहीं करता है, तो सुनिश्चित करें कि Reactotron डेस्कटॉप ऐप चल रहा है और ऐप को पुनः लोड करें।",
-    webReactotronHint:
-      "यदि यह काम नहीं करता है, तो सुनिश्चित करें कि Reactotron डेस्कटॉप ऐप चल रहा है और ऐप को पुनः लोड करें।",
-    windowsReactotronHint:
-      "यदि यह काम नहीं करता है, तो सुनिश्चित करें कि Reactotron डेस्कटॉप ऐप चल रहा है और ऐप को पुनः लोड करें।",
-  },
-  demoPodcastListScreen: {
-    title: "React Native रेडियो एपिसोड",
-    onlyFavorites: "केवल पसंदीदा दिखाएं",
-    favoriteButton: "पसंदीदा",
-    unfavoriteButton: "नापसंद",
-    accessibility: {
-      cardHint:
-        "एपिसोड सुनने के लिए डबल टैप करें। इस एपिसोड को {{action}} करने के लिए डबल टैप करें और होल्ड करें।",
-      switch: "केवल पसंदीदा दिखाने के लिए स्विच करें",
-      favoriteAction: "पसंदीदा टॉगल करें",
-      favoriteIcon: "एपिसोड पसंदीदा नहीं है",
-      unfavoriteIcon: "एपिसोड पसंदीदा है",
-      publishLabel: "{{date}} को प्रकाशित",
-      durationLabel: "अवधि: {{hours}} घंटे {{minutes}} मिनट {{seconds}} सेकंड",
-    },
-    noFavoritesEmptyState: {
-      heading: "यह थोड़ा खाली लगता है",
-      content:
-        "अभी तक कोई पसंदीदा नहीं जोड़ा गया है। इसे अपने पसंदीदा में जोड़ने के लिए किसी एपिसोड पर दिल पर टैप करें!",
-    },
-  },
+	errors: {
+		invalidEmail: "अमन ईमल पत।",
+	},
+	loginScreen: {
+		logIn: "लग इन कर",
+		enterDetails:
+			"नच अपन ववरण दर कर और गप जनकर अनलक कर। आप अदज भ नह लग सकत क हमन क तयर कय ह। य शयद आप लग लग; यह रकट सइस नह ह।",
+		phoneFieldLabel: "फन नबर",
+		phoneFieldPlaceholder: "अपन फन नबर दर कर",
+		otpFieldLabel: "ओटप (वन टइम पसवर)",
+		otpFieldPlaceholder: "123456",
+		verifyOtp: "ओटप सतपत कर",
+		sendOtp: "ओटप भज",
+	},
+	registerScreen: {
+		register: "पजकरण कर",
+		enterDetails: "चलए आपक खत सटअप करत ह",
+		nameFieldLabel: "नम",
+		nameFieldPlaceholder: "अनमल",
+		emailFieldLabel: "ईमल",
+		emailFieldPlaceholder: "anmol@withanmol.com",
+	},
+	demoNavigator: {
+		componentsTab: "कज",
+		debugTab: "डबग",
+		profileTab: "पफइल",
+		calculatorListTab: "कलकलटर",
+	},
+	quizzesScreen: {
+		title: "कज",
+		tagLine: "वत पर नवनतम कज",
+	},
+	resultsScreen: {
+		title: "परणम",
+		tagLine: "वत पर नवनतम कज",
+	},
+	profileScreen: {
+		title: "पफइल",
+		tagLine: "पफइल",
+	},
+	demoDebugScreen: {
+		howTo: "कस कर",
+		title: "डबग",
+		tagLine:
+			"बधई ह, आपक पस एक बहत ह उनत React Native ऐप टमलट ह। इसक भरपर उपयग कर!",
+		reactotron: "Reactotron पर भज",
+		reportBugs: "बग क रपर कर",
+		demoList: "डम सच",
+		demoPodcastList: "डम पडकस सच",
+		androidReactotronHint:
+			"यद यह कम नह करत ह, त सनशत कर क Reactotron डसटप ऐप चल रह ह, टरनल म `adb reverse tcp:9090 tcp:9090` चलए, और ऐप क फर स लड कर।",
+		iosReactotronHint:
+			"यद यह कम नह करत ह, त सनशत कर क Reactotron डसटप ऐप चल रह ह और ऐप क फर स लड कर।",
+		macosReactotronHint:
+			"यद यह कम नह करत ह, त सनशत कर क Reactotron डसटप ऐप चल रह ह और ऐप क फर स लड कर।",
+		webReactotronHint:
+			"यद यह कम नह करत ह, त सनशत कर क Reactotron डसटप ऐप चल रह ह और ऐप क फर स लड कर।",
+		windowsReactotronHint:
+			"यद यह कम नह करत ह, त सनशत कर क Reactotron डसटप ऐप चल रह ह और ऐप क फर स लड कर।",
+	},
+	calculatorListScreen: {
+		title: "कलकलटर",
+		tagLine: "सभ वतय कलकलटर",
+	},
+	sipScreen: {
+		title: "एसआईप कलकलटर",
+		tagLine: "कलकलटर",
+	},
+	swpScreen: {
+		title: "एसडबप कलकलटर",
+		tagLine: "कलकलटर",
+	},
+	mfScreen: {
+		title: "एमएफ कलकलटर",
+		tagLine: "कलकलटर",
+	},
+	ppfScreen: {
+		title: "पपएफ कलकलटर",
+		tagLine: "कलकलटर",
+	},
+	epfScreen: {
+		title: "ईपएफ कलकलटर",
+		tagLine: "कलकलटर",
+	},
+	...demoHi, // keep unchanged unless demoEn has language-specific content
+} as const;
 
-  ...demoHi,
-}
-
-export default hi
+export default hi;
+export type TranslationsHi = typeof hi;

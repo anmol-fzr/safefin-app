@@ -24,11 +24,10 @@ export const RegisterForm = () => {
 	const { themed } = useAppTheme();
 
 	const onSubmit = handleSubmit(async (data) => {
-		const d = await authClient.updateUser({
+		await authClient.updateUser({
 			name: data.name,
 			//email: data.email,
 		});
-		console.log(d);
 
 		setAuthState("complete");
 
